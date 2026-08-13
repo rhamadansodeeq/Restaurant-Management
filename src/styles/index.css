@@ -303,6 +303,10 @@ tbody td { padding: 12px 16px; color: var(--text-primary); }
   .grid-4 { grid-template-columns: repeat(2, 1fr); }
   .form-row { grid-template-columns: 1fr; }
 }
+@media (max-width: 900px) {
+  .grid-3 { grid-template-columns: repeat(2, 1fr); }
+  .grid-2 { grid-template-columns: 1fr; }
+}
 @media (max-width: 768px) {
   .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
   .section-padding { padding: 60px 0; }
@@ -313,6 +317,9 @@ tbody td { padding: 12px 16px; color: var(--text-primary); }
 @media (max-width: 480px) {
   .btn { padding: 10px 20px; font-size: 0.9rem; }
   .btn-lg { padding: 12px 28px; }
+  .grid-2, .grid-3, .grid-4 { gap: 16px; }
+  .section-padding { padding: 40px 0; }
+  .section-header { margin-bottom: 32px; }
 }
 
 .hide-mobile { display: block; }

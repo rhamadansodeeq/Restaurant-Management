@@ -20,7 +20,7 @@ export default function Cart() {
               <Link to="/menu" className="btn btn-primary" style={{ marginTop: '16px' }}>Browse Menu</Link>
             </div>
           ) : (
-            <div className="grid-2" style={{ gridTemplateColumns: '2fr 1fr', alignItems: 'start' }}>
+            <div className="cart-layout">
               <div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '16px' }}>
                   <h3>Cart Items ({cartItems.length})</h3>

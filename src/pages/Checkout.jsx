@@ -67,7 +67,7 @@ export default function Checkout() {
 
       <section className="section-padding" style={{ background: 'var(--section-contact)' }}>
         <div className="container">
-          <div className="grid-2" style={{ gridTemplateColumns: '2fr 1fr', alignItems: 'start' }}>
+          <div className="cart-layout">
             <div className="card" style={{ padding: '32px' }}>
               <h3 style={{ marginBottom: '20px' }}>Delivery Details</h3>
               <form onSubmit={handleSubmit}>

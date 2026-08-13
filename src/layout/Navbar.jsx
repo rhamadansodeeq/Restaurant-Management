@@ -86,7 +86,7 @@ export default function Navbar() {
                   <div style={{
                     position: 'absolute', top: '100%', right: 0, marginTop: '8px',
                     background: 'var(--card-bg)', borderRadius: 'var(--radius-md)',
-                    boxShadow: 'var(--shadow-lg)', minWidth: '160px', zIndex: 1001,
+                    boxShadow: 'var(--shadow-lg)', minWidth: '180px', zIndex: 1001,
                     overflow: 'hidden',
                   }}>
                     <div style={{ padding: '12px 16px', borderBottom: '1px solid var(--border-color)' }}>
