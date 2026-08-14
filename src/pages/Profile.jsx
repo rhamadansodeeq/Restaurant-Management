@@ -76,7 +76,7 @@ export default function Profile() {
 
       <section className="section-padding" style={{ background: 'var(--section-contact)' }}>
         <div className="container">
-          <div style={{ display: 'grid', gridTemplateColumns: '250px 1fr', gap: '24px', alignItems: 'start' }}>
+          <div className="profile-layout">
             <div className="profile-sidebar">
               <div className="avatar">{user.name?.charAt(0).toUpperCase()}</div>
               <h4 style={{ textAlign: 'center', marginBottom: '4px' }}>{user.name}</h4>
@@ -95,9 +95,9 @@ export default function Profile() {
 
             <div>
               {tab === 'profile' && (
-                <div className="card" style={{ padding: '32px' }}>
+                <div className="card profile-card-inner">
                   <h3 style={{ marginBottom: '20px' }}>Account Information</h3>
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                  <div className="profile-info-grid">
                     <div><strong>Full Name:</strong> <p>{user.name}</p></div>
                     <div><strong>Username:</strong> <p>{user.username}</p></div>
                     <div><strong>Email:</strong> <p>{user.email}</p></div>
@@ -111,7 +111,7 @@ export default function Profile() {
               )}
 
               {tab === 'edit' && (
-                <div className="card" style={{ padding: '32px' }}>
+                <div className="card profile-card-inner">
                   <h3 style={{ marginBottom: '20px' }}>Edit Profile</h3>
                   <form onSubmit={handleSaveProfile}>
                     <div className="form-row">
@@ -140,7 +140,7 @@ export default function Profile() {
               )}
 
               {tab === 'password' && (
-                <div className="card" style={{ padding: '32px' }}>
+                <div className="card profile-card-inner">
                   <h3 style={{ marginBottom: '20px' }}>Change Password</h3>
                   <form onSubmit={handleChangePassword}>
                     <div className="form-group">
@@ -164,14 +164,14 @@ export default function Profile() {
                 <div>
                   <h3 style={{ marginBottom: '20px' }}>Order History</h3>
                   {userOrders.length === 0 ? (
-                    <div className="card" style={{ padding: '40px', textAlign: 'center' }}>
+                    <div className="card profile-card-inner" style={{ textAlign: 'center' }}>
                       <p>No orders yet. <Link to="/menu">Start ordering!</Link></p>
                     </div>
                   ) : (
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                       {userOrders.map((order) => (
-                        <div key={order.id} className="card" style={{ padding: '20px' }}>
-                          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
+                        <div key={order.id} className="card profile-order-card">
+                          <div className="order-header" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
                             <strong>{order.id}</strong>
                             <span className={`status-${order.status}`}>{order.status}</span>
                           </div>
@@ -187,14 +187,14 @@ export default function Profile() {
                 <div>
                   <h3 style={{ marginBottom: '20px' }}>Reservation History</h3>
                   {userReservations.length === 0 ? (
-                    <div className="card" style={{ padding: '40px', textAlign: 'center' }}>
+                    <div className="card profile-card-inner" style={{ textAlign: 'center' }}>
                       <p>No reservations yet. <Link to="/reservation">Book a table!</Link></p>
                     </div>
                   ) : (
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                       {userReservations.map((res) => (
-                        <div key={res.id} className="card" style={{ padding: '20px' }}>
-                          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
+                        <div key={res.id} className="card profile-order-card">
+                          <div className="order-header" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
                             <strong>{res.id}</strong>
                             <span className={`status-${res.status}`}>{res.status}</span>
                           </div>
