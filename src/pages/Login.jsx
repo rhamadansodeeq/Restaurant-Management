@@ -60,6 +60,10 @@ export default function Login() {
           <button type="submit" className="btn btn-primary btn-lg" style={{ width: '100%' }}>Sign In</button>
         </form>
 
+        <div className="auth-forgot">
+          <Link to="/forgot-password">Forgot your password?</Link>
+        </div>
+
         <div className="auth-link">
           Don't have an account? <Link to="/signup">Sign up here</Link>
         </div>

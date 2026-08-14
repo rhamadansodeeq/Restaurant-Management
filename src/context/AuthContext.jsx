@@ -67,7 +67,7 @@ export function AuthProvider({ children }) {
         };
         setUser(adminUser);
         return { success: true, user: adminUser };
-      }//
+      }
       const filterStr = `${supabase.filter.eq('username', username)}&${supabase.filter.eq('password', password)}`;
       const rows = await supabase.from('customers').select('*', { filter: filterStr });
       const found = (rows || [])[0];
@@ -82,6 +82,65 @@ export function AuthProvider({ children }) {
   };
 
   const logout = () => setUser(null);
+
+  const requestPasswordReset = async (contactMethod, contactValue) => {
+    try {
+      const filterStr = supabase.filter.eq(contactMethod, contactValue);
+      const rows = await supabase.from('customers').select('id, name, username, email, phone', { filter: filterStr });
+      const found = (rows || [])[0];
+      if (!found) {
+        return { success: false, message: 'No account found with that information' };
+      }
+      const code = String(Math.floor(100000 + Math.random() * 900000));
+      await supabase.from('password_reset_codes').insert({
+        customer_id: found.id,
+        code,
+        contact_method: contactMethod,
+        contact_value: contactValue,
+        expires_at: new Date(Date.now() + 15 * 60 * 1000).toISOString(),
+        used: false,
+      });
+      return { success: true, code };
+    } catch (err) {
+      return { success: false, message: err.message };
+    }
+  };
+
+  const verifyResetCode = async (contactValue, code) => {
+    try {
+      const filterStr = `${supabase.filter.eq('contact_value', contactValue)}&${supabase.filter.eq('code', code)}&${supabase.filter.eq('used', 'false')}`;
+      const rows = await supabase.from('password_reset_codes').select('id, customer_id, expires_at', { filter: filterStr });
+      const found = (rows || [])[0];
+      if (!found) {
+        return { success: false, message: 'Invalid verification code' };
+      }
+      if (new Date() > new Date(found.expires_at)) {
+        return { success: false, message: 'This code has expired. Please request a new one.' };
+      }
+      return { success: true, customerId: found.customer_id };
+    } catch (err) {
+      return { success: false, message: err.message };
+    }
+  };
+
+  const setNewPassword = async (customerId, code, newPassword) => {
+    try {
+      const filterStr = `${supabase.filter.eq('customer_id', customerId)}&${supabase.filter.eq('code', code)}&${supabase.filter.eq('used', 'false')}`;
+      const rows = await supabase.from('password_reset_codes').select('id, expires_at', { filter: filterStr });
+      const found = (rows || [])[0];
+      if (!found) {
+        return { success: false, message: 'Invalid or expired reset session' };
+      }
+      if (new Date() > new Date(found.expires_at)) {
+        return { success: false, message: 'This reset session has expired' };
+      }
+      await supabase.from('customers').update({ password: newPassword }, { filter: supabase.filter.eq('id', customerId) });
+      await supabase.from('password_reset_codes').update({ used: true }, { filter: supabase.filter.eq('id', found.id) });
+      return { success: true };
+    } catch (err) {
+      return { success: false, message: err.message };
+    }
+  };
 
   const updateProfile = async (updates) => {
     if (!user) return;
@@ -121,7 +180,7 @@ export function AuthProvider({ children }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, users, loading, fetchUsers, signup, login, logout, updateProfile, changePassword, deleteUser, updateUser }}>
+    <AuthContext.Provider value={{ user, users, loading, fetchUsers, signup, login, logout, updateProfile, changePassword, deleteUser, updateUser, requestPasswordReset, verifyResetCode, setNewPassword }}>
       {children}
     </AuthContext.Provider>
   );

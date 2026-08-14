@@ -77,8 +77,8 @@
   .theme-toggle { width: 36px; height: 36px; font-size: 1rem; }
 }
 @media (max-width: 480px) {
-  .nav-logo span:last-child { display: none; }
-  .nav-logo .logo-icon { font-size: 1.6rem; }
+  .nav-logo span:last-child { font-size: 1rem; }
+  .nav-logo .logo-icon { font-size: 1.4rem; }
   .nav-icon-btn { width: 34px; height: 34px; }
   .theme-toggle { width: 34px; height: 34px; }
 }
@@ -344,3 +344,56 @@
 .bar-chart .bar { flex: 1; background: var(--primary-gradient); border-radius: 8px 8px 0 0; position: relative; min-height: 4px; transition: height 0.5s ease; }
 .bar-chart .bar .bar-label { position: absolute; bottom: -24px; left: 0; right: 0; text-align: center; font-size: 0.75rem; color: var(--text-muted); }
 .bar-chart .bar .bar-value { position: absolute; top: -20px; left: 0; right: 0; text-align: center; font-size: 0.75rem; color: var(--text-primary); font-weight: 600; }
+/* Forgot Password */
+.auth-forgot { text-align: center; margin-top: 16px; font-size: 0.85rem; }
+.auth-forgot a { color: var(--text-muted); text-decoration: underline; transition: var(--transition-fast); }
+.auth-forgot a:hover { color: var(--primary); }
+
+.reset-progress { display: flex; align-items: center; justify-content: center; gap: 0; margin-bottom: 28px; }
+.reset-step {
+  width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 0.9rem; background: var(--gray-200); color: var(--text-muted);
+  transition: var(--transition); flex-shrink: 0;
+}
+.reset-step.active { background: var(--primary); color: white; box-shadow: 0 0 0 4px rgba(233, 84, 32, 0.15); }
+.reset-step-line { width: 48px; height: 3px; background: var(--gray-200); transition: var(--transition); }
+.reset-step-line.active { background: var(--primary); }
+
+.reset-method-toggle { display: flex; gap: 8px; margin-bottom: 20px; }
+.reset-method-toggle button {
+  flex: 1; padding: 12px; border: 2px solid var(--border-color); background: var(--card-bg);
+  border-radius: var(--radius-md); cursor: pointer; font-size: 0.9rem; font-weight: 600;
+  color: var(--text-secondary); transition: var(--transition-fast);
+}
+.reset-method-toggle button:hover { border-color: var(--primary); color: var(--primary); }
+.reset-method-toggle button.active { border-color: var(--primary); background: var(--primary); color: white; }
+
+.reset-code-input {
+  text-align: center; font-size: 1.5rem; font-weight: 700; letter-spacing: 0.5rem;
+  padding: 14px 8px; max-width: 220px; margin: 0 auto; display: block;
+}
+
+.reset-code-display {
+  background: linear-gradient(135deg, rgba(233, 84, 32, 0.08), rgba(233, 84, 32, 0.03));
+  border: 1px dashed var(--primary); border-radius: var(--radius-md);
+  padding: 16px 20px; margin-bottom: 20px; text-align: center;
+}
+.reset-code-label { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px; }
+.reset-code-box {
+  font-size: 2rem; font-weight: 800; letter-spacing: 0.4rem; color: var(--primary);
+  font-family: var(--font-heading);
+}
+
+.reset-resend-btn {
+  display: block; margin: 16px auto 0; background: none; border: none;
+  color: var(--text-muted); font-size: 0.85rem; cursor: pointer; transition: var(--transition-fast);
+}
+.reset-resend-btn:hover { color: var(--primary); }
+.reset-resend-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+@media (max-width: 480px) {
+  .reset-step { width: 32px; height: 32px; font-size: 0.8rem; }
+  .reset-step-line { width: 32px; }
+  .reset-code-input { font-size: 1.3rem; letter-spacing: 0.3rem; max-width: 180px; }
+  .reset-code-box { font-size: 1.6rem; }
+}

@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
+import ErrorBoundary from './components/ErrorBoundary';
 
 import { ThemeProvider } from './context/ThemeContext';
 import { ToastProvider } from './context/ToastContext';
@@ -29,6 +30,7 @@ import FAQ from './pages/FAQ';
 import Contact from './pages/Contact';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import ForgotPassword from './pages/ForgotPassword';
 import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
 import Wishlist from './pages/Wishlist';
@@ -40,6 +42,7 @@ import NotFound from './pages/NotFound';
 
 export default function App() {
   return (
+    <ErrorBoundary>
     <ThemeProvider>
       <ToastProvider>
         <AuthProvider>
@@ -54,6 +57,7 @@ export default function App() {
                           {/* Auth pages — no layout */}
                           <Route path="/login" element={<Login />} />
                           <Route path="/signup" element={<Signup />} />
+                          <Route path="/forgot-password" element={<ForgotPassword />} />
 
                           {/* Admin — no standard layout */}
                           <Route path="/admin" element={
@@ -103,5 +107,6 @@ export default function App() {
         </AuthProvider>
       </ToastProvider>
     </ThemeProvider>
+    </ErrorBoundary>
   );
 }
